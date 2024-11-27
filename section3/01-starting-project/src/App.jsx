@@ -1,6 +1,5 @@
-import reactImg from './assets/react-core-concepts.png';
 import {CORE_CONCEPTS} from './data.js';
-import Header from './components/Headers.jsx';
+import Header from './components/Header/Headers.jsx';
 import CoreConcept from './components/CoreConcept';
 // import componentImage from './assets/components.png';
 // import jsx from './assets/jsx-ui.png';
