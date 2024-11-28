@@ -6,7 +6,7 @@ import {useState} from 'react';
 
 function App() {
 
-    const [selectedTopic, setSelectedTopic] = useState('components');
+    const [selectedTopic, setSelectedTopic] = useState();
     function handleClick(selectedButton){
         setSelectedTopic(selectedButton);
         console.log(selectedTopic);
@@ -43,13 +43,13 @@ function App() {
                         <TabButton name="Props" onSelect={()=> handleClick('props')}/>
                         <TabButton name="State" onSelect={()=> handleClick('state')}/>
                     </menu>
-                    <div>
+                    {!selectedTopic ? <p>Please select a topic</p> : <div>
                         <h2>{EXAMPLES[selectedTopic].title}</h2>
                         <p>{EXAMPLES[selectedTopic].description}</p>
                         <pre>
                             <code>{EXAMPLES[selectedTopic].code}</code>
                         </pre>
-                    </div>
+                    </div>}
                 </section>
             </main>
         </div>
