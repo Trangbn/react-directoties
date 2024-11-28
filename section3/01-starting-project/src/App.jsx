@@ -1,12 +1,14 @@
 import {CORE_CONCEPTS} from './data.js';
 import Header from './components/Header/Headers.jsx';
 import CoreConcept from './components/CoreConcept';
-// import componentImage from './assets/components.png';
-// import jsx from './assets/jsx-ui.png';
-// import stateMng from './assets/state-mgmt.png';
-// import props from './assets/config.png';
+import TabButton from "./components/TabButton";
 
 function App() {
+
+    function handleClick(){
+        console.log("This click event");
+    }
+
     return (
         <div>
             <Header/>
@@ -28,7 +30,15 @@ function App() {
                         />
                     </ul>
                 </section>
-                <h2>Time to get started!</h2>
+                <section id="examples">
+                    <h2>Examples</h2>
+                    <menu>
+                        <TabButton name="Components" onSelect={handleClick}/>
+                        <TabButton name="Jsx" onSelect={handleClick}/>
+                        <TabButton name="Props" onSelect={handleClick}/>
+                        <TabButton name="State" onSelect={handleClick}/>
+                    </menu>
+                </section>
             </main>
         </div>
     );
