@@ -38,10 +38,10 @@ function App() {
                 <section id="examples">
                     <h2>Examples</h2>
                     <menu>
-                        <TabButton name="Components" onSelect={()=> handleClick('components')} />
-                        <TabButton name="Jsx" onSelect={()=> handleClick('jsx')}/>
-                        <TabButton name="Props" onSelect={()=> handleClick('props')}/>
-                        <TabButton name="State" onSelect={()=> handleClick('state')}/>
+                        <TabButton name="Components" isSelected={selectedTopic === 'components'} onSelect={()=> handleClick('components')} />
+                        <TabButton name="Jsx" isSelected={selectedTopic === 'jsx'} onSelect={()=> handleClick('jsx')}/>
+                        <TabButton name="Props" isSelected={selectedTopic === 'props'} onSelect={()=> handleClick('props')}/>
+                        <TabButton name="State" isSelected={selectedTopic === 'state'} onSelect={()=> handleClick('state')}/>
                     </menu>
                     {!selectedTopic ? <p>Please select a topic</p> : <div>
                         <h2>{EXAMPLES[selectedTopic].title}</h2>

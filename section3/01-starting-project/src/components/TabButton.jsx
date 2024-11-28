@@ -1,6 +1,6 @@
-export default function TabButton({name, onSelect}){
+export default function TabButton({name, onSelect, isSelected}){
     console.log('TabButton executing');
     return (
-        <li><button onClick={onSelect}>{name}</button></li>
+        <li><button className={isSelected ? 'active': undefined} onClick={onSelect}>{name}</button></li>
     );
 }
