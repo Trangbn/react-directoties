@@ -1,6 +1,7 @@
 import TabButton from "./TabButton";
 import {useState} from "react";
 import {EXAMPLES} from '../data.js';
+import Section from './Section.jsx';
 
 export default function Examples(){
 
@@ -11,8 +12,7 @@ export default function Examples(){
     }
 
     return (
-        <section id="examples">
-            <h2>Examples</h2>
+        <Section id="examples" title={"Examples"}>
             <menu>
                 <TabButton name="Components" isSelected={selectedTopic === 'components'}
                            onSelect={() => handleClick('components')}/>
@@ -27,6 +27,6 @@ export default function Examples(){
                     <code>{EXAMPLES[selectedTopic].code}</code>
                 </pre>
             </div>}
-        </section>
+        </Section>
     );
 }
