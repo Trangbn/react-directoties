@@ -15,18 +15,19 @@ export default function Examples(){
         <Section id="examples" title={"Examples"}>
             <menu>
                 <TabButton name="Components" isSelected={selectedTopic === 'components'}
-                           onSelect={() => handleClick('components')}/>
-                <TabButton name="Jsx" isSelected={selectedTopic === 'jsx'} onSelect={() => handleClick('jsx')}/>
-                <TabButton name="Props" isSelected={selectedTopic === 'props'} onSelect={() => handleClick('props')}/>
-                <TabButton name="State" isSelected={selectedTopic === 'state'} onSelect={() => handleClick('state')}/>
+                           onClick={() => handleClick('components')}/>
+                <TabButton name="Jsx" isSelected={selectedTopic === 'jsx'} onClick={() => handleClick('jsx')}/>
+                <TabButton name="Props" isSelected={selectedTopic === 'props'} onClick={() => handleClick('props')}/>
+                <TabButton name="State" isSelected={selectedTopic === 'state'} onClick={() => handleClick('state')}/>
             </menu>
-            {!selectedTopic ? <p>Please select a topic</p> : <div>
-                <h2>{EXAMPLES[selectedTopic].title}</h2>
-                <p>{EXAMPLES[selectedTopic].description}</p>
-                <pre>
-                    <code>{EXAMPLES[selectedTopic].code}</code>
-                </pre>
-            </div>}
+            {!selectedTopic ? <p>Please select a topic</p> :
+                <div>
+                    <h2>{EXAMPLES[selectedTopic].title}</h2>
+                    <p>{EXAMPLES[selectedTopic].description}</p>
+                    <pre>
+                        <code>{EXAMPLES[selectedTopic].code}</code>
+                    </pre>
+                </div>}
         </Section>
     );
 }
