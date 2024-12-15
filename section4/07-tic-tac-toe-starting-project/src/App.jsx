@@ -21,7 +21,10 @@ function deriveActivePLayer(gameTurns){
 }
 
 function App() {
-
+    const [players, setPlayers] = useState({
+        X: 'Player 1',
+        O: 'Player 2'
+    });
     const [gameTurns, setGameTurns] = useState([]);
     let currentPlayer =  deriveActivePLayer(gameTurns);
 
@@ -56,6 +59,15 @@ function App() {
 
     function handleRematch(){
         setGameTurns([]);
+    }
+
+    function handlePlayerNameChange(symbol, newName){
+        setPlayers(prevState => {
+            return {
+                ...prevState,
+                [symbol]: newName
+            }
+        })
     }
 
     return (
