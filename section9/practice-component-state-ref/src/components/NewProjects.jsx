@@ -35,7 +35,7 @@ export default function NewProjects({onAdd}) {
             <div>
                 <Input ref={title} label="Title" textArea={false}/>
                 <Input ref={description} label="Description" textArea={true}/>
-                <Input ref={dueDate} label="Due date" textArea={false}/>
+                <Input type="date" ref={dueDate} label="Due date" textArea={false}/>
             </div>
         </div>
     );
