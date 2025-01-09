@@ -65,7 +65,7 @@ function App() {
 
     return (
         <main className="h-screen my-8 gap-8 flex">
-            <SideBar onStartAddProject={handleStartAddProject} projects={projectsState.projects}/>
+            <SideBar onStartAddProject={handleStartAddProject} projects={projectsState.projects} onSelectProject={handleSelectProject}/>
             {content}
         </main>
     );
