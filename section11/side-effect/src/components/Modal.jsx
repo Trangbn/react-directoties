@@ -1,7 +1,7 @@
-import { forwardRef, useRef, useEffect } from 'react';
+import { forwardRef, useImperativeHandle, useRef } from 'react';
 import { createPortal } from 'react-dom';
 
-const Modal = forwardRef(function Modal({open, children, onClose}) {
+const Modal = forwardRef(function Modal({ children }, ref) {
   const dialog = useRef();
 
   useEffect(() => {
