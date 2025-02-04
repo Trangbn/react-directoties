@@ -1,5 +1,21 @@
+import {useEffect} from "react";
+
 export default function DeleteConfirmation({ onConfirm, onCancel }) {
-  return (
+
+    console.log("Timer set")
+    useEffect(() => {
+        const timer = setTimeout(()=> {
+            onConfirm();
+        }, 3000);
+
+        return ()=>{
+            console.log("Timer clearing..")
+            clearTimeout(timer);
+        }
+    }, [onConfirm]);
+
+
+    return (
     <div id="delete-confirmation">
       <h2>Are you sure?</h2>
       <p>Do you really want to remove this place?</p>
