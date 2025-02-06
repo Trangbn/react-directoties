@@ -5,7 +5,6 @@ import Questions from "./Questions.jsx";
 
 export default function Quiz() {
 
-
     const [userAnswers, setUserAnswers] = useState([]);
     const activeQuestionIndex = userAnswers.length;
     const quizIsComplete = activeQuestionIndex === QUESTIONS.length;

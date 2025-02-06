@@ -13,7 +13,7 @@ export default function Questions({
         isCorrect: null,
     })
 
-    function handleSelectAnswer({answer}) {
+    function handleSelectAnswer(answer) {
         setAnswer({
             selectedAnswer: answer,
             isCorrect: null
@@ -23,7 +23,7 @@ export default function Questions({
             setAnswer({
                 selectedAnswer: answer,
                 isCorrect: QUESTIONS[index].answers[0] === answer
-            })
+            });
 
             setTimeout(()=> {
                 onSelectAnswer(answer);
@@ -34,7 +34,7 @@ export default function Questions({
     let answerState = '';
     if (answer.selectedAnswer && answer.isCorrect !== null) {
         answerState = answer.isCorrect ? 'correct' : 'wrong';
-    }else if(answer.selectedAnswer){
+    } else if (answer.selectedAnswer) {
         answerState = 'answered';
     }
 
