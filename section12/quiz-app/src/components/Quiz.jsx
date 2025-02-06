@@ -1,7 +1,7 @@
 import {useCallback, useState} from "react";
 import QUESTIONS from '../question.js';
 import quizCompleted from '../assets/quiz-complete.png';
-import QuestionTimer from "./QuestionTimer.jsx";
+import Questions from "./Questions.jsx";
 
 export default function Quiz() {
 
@@ -41,36 +41,16 @@ export default function Quiz() {
         );
     }
 
-    const shuffledAnswers = [...QUESTIONS[activeQuestionIndex].answers];
-    shuffledAnswers.sort(() => Math.random() - 0.5);
-
     return (
         <div id="quiz">
-            <div id="questions">
-                <QuestionTimer timeout={10000} onTimeout={handleSkipSelectAnswer} key={activeQuestionIndex}/>
-                <h2>{QUESTIONS[activeQuestionIndex].text}</h2>
-                <ul id="answers">
-                    {
-                        shuffledAnswers.map((answer) => {
-                                const isSelected = userAnswers[userAnswers.length - 1] === answer;
-                                let cssClass = '';
-
-                                if (answerState === 'answered' && isSelected) {
-                                    cssClass = 'selected';
-                                }
-
-                                if (isSelected && (answerState === 'correct' || answerState === 'wrong')) {
-                                    cssClass = answerState;
-                                }
-
-                                return <li key={answer} className="answer">
-                                    <button onClick={() => handleSelectAnswer(answer)} className={cssClass}>{answer}</button>
-                                </li>
-                            }
-                        )
-                    }
-                </ul>
-            </div>
+            <Questions questionText={QUESTIONS[activeQuestionIndex].text}
+                       answers={QUESTIONS[activeQuestionIndex].answers}
+                       onSelectAnswer={handleSelectAnswer}
+                       selectedAnswer={userAnswers[userAnswers.length - 1]}
+                       answerState={answerState}
+                       onSkipAnswer={handleSkipSelectAnswer}
+                       key={activeQuestionIndex}
+            />
         </div>
     );
 }
