@@ -10,7 +10,6 @@ function App() {
   const selectedPlace = useRef();
 
   const [userPlaces, setUserPlaces] = useState([]);
-
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
   function handleStartRemovePlace(place) {
@@ -66,7 +65,6 @@ function App() {
           places={userPlaces}
           onSelectPlace={handleStartRemovePlace}
         />
-
         <AvailablePlaces onSelectPlace={handleSelectPlace} />
       </main>
     </>
