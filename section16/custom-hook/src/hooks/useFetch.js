@@ -25,6 +25,7 @@ export function useFetch(fetchFn, initialState) {
     return {
         isFetching,
         fetchedData,
+        setFetchedData,
         error
     }
 }
