@@ -1,11 +1,11 @@
-import { useRef, useState, useCallback } from 'react';
+import {useRef, useState, useCallback, useEffect} from 'react';
 
 import Places from './components/Places.jsx';
 import Modal from './components/Modal.jsx';
 import DeleteConfirmation from './components/DeleteConfirmation.jsx';
 import logoImg from './assets/logo.png';
 import AvailablePlaces from './components/AvailablePlaces.jsx';
-import {updateUserPlaces} from "./http.js";
+import {fetchUserPlaces, updateUserPlaces} from "./http.js";
 import Error from './components/Error.jsx';
 
 function App() {
@@ -14,6 +14,22 @@ function App() {
   const [userPlaces, setUserPlaces] = useState([]);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [errorUpdatingPlaces, setErrorUpdatingPlaces] = useState();
+  const [errorFetchingPlaces, setErrorFetchingPlaces] = useState();
+  const [isFetchingPlaces, setIsFetchingPlaces] = useState();
+
+  useEffect(() => {
+    async function fetchPlaces() {
+      setIsFetchingPlaces(true);
+      try {
+        const userPlaces = await fetchUserPlaces();
+        setUserPlaces(userPlaces);
+      } catch (error) {
+        setErrorFetchingPlaces({message: error.message || 'Failed to fetch user places'});
+      }
+      setIsFetchingPlaces(false);
+    }
+    fetchPlaces();
+  }, []);
 
   function handleStartRemovePlace(place) {
     setModalIsOpen(true);
@@ -87,12 +103,18 @@ function App() {
         </p>
       </header>
       <main>
-        <Places
+        {errorFetchingPlaces && <Error
+            title="An error occured!"
+            message={errorFetchingPlaces.message}
+        />}
+        {!errorFetchingPlaces && <Places
           title="I'd like to visit ..."
+          isLoading={isFetchingPlaces}
+          loadingText="Fetching your selected places ..."
           fallbackText="Select the places you would like to visit below."
           places={userPlaces}
           onSelectPlace={handleStartRemovePlace}
-        />
+        />}
         <AvailablePlaces onSelectPlace={handleSelectPlace} />
       </main>
     </>
