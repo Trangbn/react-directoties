@@ -37,6 +37,13 @@ export default function Login() {
         }));
     }
 
+    function handleInputBlur(identifier) {
+        setDidEdit((prevEdit) => ({
+            ...prevEdit,
+            [identifier]: true
+        }));
+    }
+
   return (
     <form onSubmit={handleSubmit}>
       <h2>Login</h2>
