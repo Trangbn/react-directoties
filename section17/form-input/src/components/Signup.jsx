@@ -1,4 +1,8 @@
+import {useState} from 'react';
+
 export default function Signup() {
+
+    const [confirmPasswordFailed, setConfirmPasswordFailed] = useState(false);
 
     function handleSubmit(e) {
         e.preventDefault();
@@ -6,6 +10,11 @@ export default function Signup() {
         const acquisitionChannel = fd.getAll('acquisition')
         const data = Object.fromEntries(fd.entries());
         data.acquisition = acquisitionChannel;
+
+        if (data.password !== data.confirmPassword) {
+            setConfirmPasswordFailed(true);
+        }
+
         e.target.reset();
         console.log(data);
     }
@@ -33,6 +42,7 @@ export default function Signup() {
                         type="password"
                         name="confirm-password"
                     />
+                    {confirmPasswordFailed && <div>Password does not match</div>}
                 </div>
             </div>
 
