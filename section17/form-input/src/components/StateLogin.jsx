@@ -9,43 +9,28 @@ export default function Login() {
         value: emailValue,
         handleInputChange: handleEmailChange,
         handleInputBlur: handleEmailBlur,
-    } = useInput('');
+        hasErrors: hasEmailError
+    } = useInput('', isEmail);
+
+    const {
+        value: passwordValue,
+        handleInputChange: handlePasswordChange,
+        handleInputBlur: handlePasswordBlur,
+        hasErrors: hasPasswordError
+    } = useInput('', (value) => hasMinLength(value, 6));
 
     const [enteredValues, setEnteredValues] = useState({
         email: '',
         password: ''
     });
 
-    const [didEdit, setDidEdit] = useState({
-        email: false,
-        password: false
-    });
-
-    const emailIsInvalid = didEdit.email && !isEmail(enteredValues.email);
-    const passwordIsInvalid = didEdit.password && !hasMinLength(enteredValues.password, 6);
-
     function handleSubmit(e) {
         e.preventDefault();
+        if (hasEmailError || hasPasswordError) {
+            return;
+        }
         console.log( enteredValues);
     }
-
-    // function handleInputChange(identifier, value) {
-    //     setEnteredValues(prevValues => ({
-    //         ...prevValues,
-    //         [identifier]: value
-    //     }));
-    //     setDidEdit(prevEdit =>({
-    //         ...prevEdit,
-    //         [identifier]: false
-    //     }));
-    // }
-    //
-    // function handleInputBlur(identifier) {
-    //     setDidEdit((prevEdit) => ({
-    //         ...prevEdit,
-    //         [identifier]: true
-    //     }));
-    // }
 
   return (
     <form onSubmit={handleSubmit}>
@@ -56,7 +41,7 @@ export default function Login() {
                label="Email"
                name="email"
                type="email"
-               error={emailIsInvalid && "Email is invalid"}
+               error={hasEmailError && "Email is invalid"}
                onChange={handleEmailChange}
                onBlur={handleEmailBlur}
                value={emailValue}
@@ -65,10 +50,10 @@ export default function Login() {
                label="Password"
                name="password"
                type="password"
-               error={passwordIsInvalid && "Password must be more than 6 characters"}
-               onChange={(event) => handleInputChange('password', event.target.value)}
-               onBlur={() => handleInputBlur('password')}
-               value={enteredValues.password}
+               error={hasPasswordError && "Password must be more than 6 characters"}
+               onChange={handlePasswordChange}
+               onBlur={handlePasswordBlur}
+               value={passwordValue}
         />
       </div>
 
