@@ -14,6 +14,7 @@ export default function Login() {
     });
 
     const emailIsInvalid = didEdit.email && !enteredValues.email.includes('@');
+    const passwordIsInvalid = didEdit.password && enteredValues.password.length < 6;
 
     function handleSubmit(e) {
         e.preventDefault();
@@ -43,24 +44,24 @@ export default function Login() {
       <h2>Login</h2>
 
       <div className="control-row">
-
-        <Input id="email" label="email" name="email" type="email"/>
+        <Input id="email"
+               label="Email"
+               name="email"
+               type="email"
+               error={emailIsInvalid && "Email is invalid"}
+               onChange={(event) => handleInputChange('email', event.target.value)}
+               onBlur={() => handleInputBlur('email')}
+               value={enteredValues.email}
+        />
         <Input id="password"
                label="Password"
                name="password"
                type="password"
+               error={passwordIsInvalid && "Password must be more than 6 characters"}
                onChange={(event) => handleInputChange('password', event.target.value)}
                onBlur={() => handleInputBlur('password')}
                value={enteredValues.password}
         />
-
-        <div className="control no-margin">
-          <label htmlFor="password">Password</label>
-          <input id="password" type="password" name="password"
-                 onChange={(event) => handleInputChange('password', event.target.value)}
-                 onBlur={() => handleInputBlur('password')}
-                 value={enteredValues.password}/>
-        </div>
       </div>
 
       <p className="form-actions">

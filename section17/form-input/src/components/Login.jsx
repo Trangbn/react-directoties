@@ -37,7 +37,7 @@ export default function Login() {
         <div className="control no-margin">
           <label htmlFor="password">Password</label>
           <input id="password" type="password" name="password"
-                 onChange={(event) => handleInputChange('email', event.target.value)}
+                 onChange={(event) => handleInputChange('password', event.target.value)}
                  value={enteredValues.email}/>
         </div>
       </div>
