@@ -1,8 +1,15 @@
 import {useState} from "react";
 import Input from "./Input.jsx";
 import {isEmail, hasMinLength} from '../util/validation.js';
+import {useInput} from "../hooks/useInput.js";
 
 export default function Login() {
+
+    const {
+        value: emailValue,
+        handleInputChange: handleEmailChange,
+        handleInputBlur: handleEmailBlur,
+    } = useInput('');
 
     const [enteredValues, setEnteredValues] = useState({
         email: '',
@@ -22,23 +29,23 @@ export default function Login() {
         console.log( enteredValues);
     }
 
-    function handleInputChange(identifier, value) {
-        setEnteredValues(prevValues => ({
-            ...prevValues,
-            [identifier]: value
-        }));
-        setDidEdit(prevEdit =>({
-            ...prevEdit,
-            [identifier]: false
-        }));
-    }
-
-    function handleInputBlur(identifier) {
-        setDidEdit((prevEdit) => ({
-            ...prevEdit,
-            [identifier]: true
-        }));
-    }
+    // function handleInputChange(identifier, value) {
+    //     setEnteredValues(prevValues => ({
+    //         ...prevValues,
+    //         [identifier]: value
+    //     }));
+    //     setDidEdit(prevEdit =>({
+    //         ...prevEdit,
+    //         [identifier]: false
+    //     }));
+    // }
+    //
+    // function handleInputBlur(identifier) {
+    //     setDidEdit((prevEdit) => ({
+    //         ...prevEdit,
+    //         [identifier]: true
+    //     }));
+    // }
 
   return (
     <form onSubmit={handleSubmit}>
@@ -50,9 +57,9 @@ export default function Login() {
                name="email"
                type="email"
                error={emailIsInvalid && "Email is invalid"}
-               onChange={(event) => handleInputChange('email', event.target.value)}
-               onBlur={() => handleInputBlur('email')}
-               value={enteredValues.email}
+               onChange={handleEmailChange}
+               onBlur={handleEmailBlur}
+               value={emailValue}
         />
         <Input id="password"
                label="Password"
