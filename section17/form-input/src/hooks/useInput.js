@@ -6,12 +6,12 @@ export function useInput(defaultValue, validateFn) {
 
     const valueIsValid = validateFn(enteredValue);
 
-    function handleInputChange(value) {
-        setEnteredValue(value);
+    function handleInputChange(event) {
+        setEnteredValue(event.target.value);
         setDidEdit(false);
     }
 
-    function handleInputBlur(identifier) {
+    function handleInputBlur() {
         setDidEdit(true);
     }
 

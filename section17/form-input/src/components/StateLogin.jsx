@@ -1,6 +1,5 @@
-import {useState} from "react";
 import Input from "./Input.jsx";
-import {isEmail, hasMinLength} from '../util/validation.js';
+import {isEmail, hasMinLength, isNotEmpty} from '../util/validation.js';
 import {useInput} from "../hooks/useInput.js";
 
 export default function Login() {
@@ -10,7 +9,7 @@ export default function Login() {
         handleInputChange: handleEmailChange,
         handleInputBlur: handleEmailBlur,
         hasErrors: hasEmailError
-    } = useInput('', isEmail);
+    } = useInput('', (value) => isEmail(value) && isNotEmpty(value));
 
     const {
         value: passwordValue,
@@ -19,17 +18,11 @@ export default function Login() {
         hasErrors: hasPasswordError
     } = useInput('', (value) => hasMinLength(value, 6));
 
-    const [enteredValues, setEnteredValues] = useState({
-        email: '',
-        password: ''
-    });
-
     function handleSubmit(e) {
         e.preventDefault();
         if (hasEmailError || hasPasswordError) {
             return;
         }
-        console.log( enteredValues);
     }
 
   return (
