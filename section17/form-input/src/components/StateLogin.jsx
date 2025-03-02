@@ -1,28 +1,32 @@
 import Input from "./Input.jsx";
-import {isEmail, hasMinLength, isNotEmpty} from '../util/validation.js';
+import {isEmail, isNotEmpty} from '../util/validation.js';
 import {useInput} from "../hooks/useInput.js";
 
 export default function Login() {
+
 
     const {
         value: emailValue,
         handleInputChange: handleEmailChange,
         handleInputBlur: handleEmailBlur,
-        hasErrors: hasEmailError
+        hasError: emailHasError,
     } = useInput('', (value) => isEmail(value) && isNotEmpty(value));
 
     const {
         value: passwordValue,
         handleInputChange: handlePasswordChange,
         handleInputBlur: handlePasswordBlur,
-        hasErrors: hasPasswordError
-    } = useInput('', (value) => hasMinLength(value, 6));
+        hasError: passwordHasError,
+    } = useInput('', (value) => isNotEmpty(value));
+
 
     function handleSubmit(e) {
         e.preventDefault();
-        if (hasEmailError || hasPasswordError) {
+        if (emailHasError || passwordHasError) {
             return;
         }
+
+        console.log((emailValue || passwordValue));
     }
 
   return (
@@ -34,7 +38,7 @@ export default function Login() {
                label="Email"
                name="email"
                type="email"
-               error={hasEmailError && "Email is invalid"}
+               error={emailHasError && "Email is invalid"}
                onChange={handleEmailChange}
                onBlur={handleEmailBlur}
                value={emailValue}
@@ -43,7 +47,7 @@ export default function Login() {
                label="Password"
                name="password"
                type="password"
-               error={hasPasswordError && "Password must be more than 6 characters"}
+               error={passwordHasError && "Password must be more than 6 characters"}
                onChange={handlePasswordChange}
                onBlur={handlePasswordBlur}
                value={passwordValue}
