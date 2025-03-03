@@ -1,37 +1,42 @@
-import {useActionState} from 'react';
-
-function createNewOpinion(prevFormState,formData) {
-  const userName = formData.get('userName');
-  const title = formData.get('title');
-  const body = formData.get('body');
-
-  const errors = [];
-
-  if (!userName) {
-    errors.push('Opinion name is required');
-  }
-
-  if (!title) {
-    errors.push('Opinion title is required');
-  }
-
-  if (!body) {
-    errors.push('Opinion is required');
-  }
-
-  if (errors.length > 0) {
-    return {
-      errors, enteredValues: {
-        userName,
-        title,
-        body
-      }
-    }
-  }
-  return {errors: null}
-}
+import {useActionState, use} from 'react';
+import {OpinionsContext} from "../store/opinions-context.jsx";
 
 export function NewOpinion() {
+
+  const {addOpinion} = use(OpinionsContext);
+
+  async function createNewOpinion(prevFormState,formData) {
+    const userName = formData.get('userName');
+    const title = formData.get('title');
+    const body = formData.get('body');
+
+    const errors = [];
+
+    if (!userName) {
+      errors.push('Opinion name is required');
+    }
+
+    if (!title) {
+      errors.push('Opinion title is required');
+    }
+
+    if (!body) {
+      errors.push('Opinion is required');
+    }
+
+    if (errors.length > 0) {
+      return {
+        errors, enteredValues: {
+          userName,
+          title,
+          body
+        }
+      }
+    }
+
+   await addOpinion({title, body, userName});
+    return {errors: null}
+  }
 
   const [formState,formAction, pending] = useActionState(createNewOpinion, {errors: null});
   return (
