@@ -1,6 +1,6 @@
 import {useActionState, use} from 'react';
-import {useFormStatus} from 'react-dom';
 import {OpinionsContext} from "../store/opinions-context.jsx";
+import Submit from "./ Submit.jsx";
 
 export function NewOpinion() {
 
@@ -39,7 +39,7 @@ export function NewOpinion() {
     return {errors: null}
   }
 
-  const [formState,formAction, pending] = useActionState(createNewOpinion, {errors: null});
+  const [formState,formAction] = useActionState(createNewOpinion, {errors: null});
   return (
     <div id="new-opinion">
       <h2>Share your opinion!</h2>
@@ -63,7 +63,7 @@ export function NewOpinion() {
         {formState.errors && <ul className="error">
           {formState.errors.map(error => <li key={error}>{error}</li>)}
         </ul>}
-
+      <Submit/>
       </form>
     </div>
   );
