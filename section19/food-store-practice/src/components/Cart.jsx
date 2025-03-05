@@ -11,8 +11,15 @@ export default function Cart({onUpdateItemQuantity}) {
     const formattedTotalPrice = `$${totalPrice.toFixed(2)}`;
 
     return (
-        <div >
-
+        <div>
+            <ul>
+                {items.map((item) => (
+                    <li key={item.id} className="cart-item">
+                        <p>{`${item.name} - ${item.price}`}</p>
+                    </li>
+                ))}
+            </ul>
+            <div className="cart-total">{formattedTotalPrice}</div>
         </div>
     );
 
