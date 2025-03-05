@@ -1,5 +1,6 @@
 import {use} from 'react';
 import {MealContext} from '../store/meal-context.jsx';
+import {MealItem} from "./MealItem.jsx";
 
 export function Meals() {
 
@@ -8,15 +9,7 @@ export function Meals() {
     return (
         <div id="meals">
             {meals && meals.map((meal, index) => (
-                <div className="meal-item" key={index}>
-                    <article>
-                        <img src={`http://localhost:3000/${meal.image}`} alt="Depictive image"/>
-                        <h3>{meal.name}</h3>
-                        <div className="meal-item-price">{meal.price}$</div>
-                        <p className="meal-item-description">{meal.description}</p>
-                        <button className="button meal-item-actions">Add to cart</button>
-                    </article>
-                </div>
+                <MealItem meal={meal} key={index}></MealItem>
             ))}
         </div>
 
