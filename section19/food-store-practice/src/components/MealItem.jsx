@@ -1,13 +1,18 @@
-export function MealItem({meal}) {
+import {useContext} from "react";
+import {MealContext} from "../store/meal-context.jsx";
+
+export function MealItem({item}) {
+
+    const {addItemToCart} = useContext(MealContext);
 
     return (
         <div className="meal-item">
             <article>
-                <img src={`http://localhost:3000/${meal.image}`} alt="Depictive image"/>
-                <h3>{meal.name}</h3>
-                <div className="meal-item-price">{meal.price}$</div>
-                <p className="meal-item-description">{meal.description}</p>
-                <button className="button meal-item-actions">Add to cart</button>
+                <img src={`http://localhost:3000/${item.image}`} alt="Depictive image"/>
+                <h3>{item.name}</h3>
+                <div className="meal-item-price">{item.price}$</div>
+                <p className="meal-item-description">{item.description}</p>
+                <button className="button meal-item-actions" onClick={() => addItemToCart(item.id)}>Add to cart</button>
             </article>
         </div>
     );

@@ -14,21 +14,23 @@ export function MealContextProvider({children}) {
     const [items, setItems] = useState([]);
     const [cartItems, setCartItems] = useState([]);
     const [cartState, cartStateDispatch] = useReducer(cartReducer, {
-        items: []
+        cartItems: []
     });
 
     useEffect(() => {
         async function loadMealItems() {
+            const cartItemIDs = JSON.parse(localStorage.getItem('cartItemIDs')) || [];
             const response = await fetch('http://localhost:3000/meals');
             const data = await response.json();
             const cartData = data.filter(item => cartItemIDs.includes(item.id));
             setItems(data);
             setCartItems(cartData);
         }
+
         loadMealItems();
     }, []);
 
-    function cartReducer(state, action){
+    function cartReducer(state, action) {
         if (action.type === 'ADD_ITEM') {
             const updatedItems = [...state.cartItems];
             const existingCartItemIndex = updatedItems.findIndex((item) => item.id === action.payload);
@@ -62,7 +64,7 @@ export function MealContextProvider({children}) {
 
             if (updatedItem.quantity <= 0) {
                 updatedItems.splice(updatedCartItemIndex, 1);
-            }else{
+            } else {
                 updatedItems[updatedCartItemIndex] = updatedItem;
             }
 
@@ -71,17 +73,21 @@ export function MealContextProvider({children}) {
                 cartItems: updatedItems,
             }
         }
-
     }
 
-    function handleAddItemToCart(id){
+    function handleAddItemToCart(id) {
+        const cartItemIDs = JSON.parse(localStorage.getItem('cartItemIDs')) || [];
+        localStorage.setItem('cartItemIDs', JSON.stringify([
+            ...cartItemIDs, id
+        ]));
+
         cartStateDispatch({
             type: 'ADD_ITEM',
             payload: id
         });
     }
 
-    function handleUpdateItemQuantity(productId, amount){
+    function handleUpdateItemQuantity(productId, amount) {
         cartStateDispatch({
             type: 'UPDATE_ITEM',
             payload: {productId, amount}

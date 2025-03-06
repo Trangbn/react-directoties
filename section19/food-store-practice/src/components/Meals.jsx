@@ -9,7 +9,7 @@ export function Meals() {
     return (
         <div id="meals">
             {items && items.map((items, index) => (
-                <MealItem meal={items} key={index}></MealItem>
+                <MealItem item={items} key={index}></MealItem>
             ))}
         </div>
 
