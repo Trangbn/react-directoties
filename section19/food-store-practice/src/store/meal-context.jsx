@@ -2,13 +2,17 @@ import {createContext, useContext, useEffect, useReducer, useState} from 'react'
 
 export const MealContext = createContext({
     items: null,
+    cartItems: null,
     addItemToCart: ()=>{},
     updateItemQuantity: ()=>{}
 });
 
+const cartItemIDs = JSON.parse(localStorage.getItem('cartItemIDs')) || [];
+
 export function MealContextProvider({children}) {
 
     const [items, setItems] = useState([]);
+    const [cartItems, setCartItems] = useState([]);
     const [cartState, cartStateDispatch] = useReducer(cartReducer, {
         items: []
     });
@@ -17,14 +21,16 @@ export function MealContextProvider({children}) {
         async function loadMealItems() {
             const response = await fetch('http://localhost:3000/meals');
             const data = await response.json();
+            const cartData = data.filter(item => cartItemIDs.includes(item.id));
             setItems(data);
+            setCartItems(cartData);
         }
         loadMealItems();
     }, []);
 
     function cartReducer(state, action){
         if (action.type === 'ADD_ITEM') {
-            const updatedItems = [...state.items];
+            const updatedItems = [...state.cartItems];
             const existingCartItemIndex = updatedItems.findIndex((item) => item.id === action.payload);
 
             const existingCartItem = updatedItems[existingCartItemIndex];
@@ -34,18 +40,18 @@ export function MealContextProvider({children}) {
                     quantity: existingCartItem.quantity + 1
                 }
             } else {
-                const newItem = items.find((it) => it.id === existingCartItemIndex);
+                const newItem = cartItems.find((it) => it.id === existingCartItemIndex);
                 updatedItems.push(newItem);
             }
 
             return {
                 ...state,
-                items: updatedItems
+                cartItems: updatedItems
             };
         }
 
         if (action.type === 'UPDATE_ITEM') {
-            const updatedItems = [...state.items];
+            const updatedItems = [...state.cartItems];
             const updatedCartItemIndex = updatedItems.findIndex((item) => item.id === action.payload.productId);
 
             const updatedItem = {
@@ -62,7 +68,7 @@ export function MealContextProvider({children}) {
 
             return {
                 ...state,
-                items: updatedItems,
+                cartItems: updatedItems,
             }
         }
 
@@ -84,6 +90,7 @@ export function MealContextProvider({children}) {
 
     const contextValue = {
         items: items,
+        cartItems: cartItems,
         addItemToCart: handleAddItemToCart,
         updateItemQuantity: handleUpdateItemQuantity
     }

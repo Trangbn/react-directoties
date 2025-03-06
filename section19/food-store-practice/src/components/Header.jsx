@@ -6,10 +6,8 @@ import CartModal from "./CartModal.jsx";
 export function Header() {
 
     const modal  = useRef();
-    const {items} = useContext(MealContext);
-
-    const cartQuantity = items.length;
-
+    const {cartItems} = useContext(MealContext);
+    const cartQuantity = cartItems.length;
     let modalActions  = <button>Close</button>
 
     function handleOnCartClick(){
