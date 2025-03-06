@@ -4,12 +4,12 @@ import {MealItem} from "./MealItem.jsx";
 
 export function Meals() {
 
-    const {meals} = use(MealContext);
+    const {items} = use(MealContext);
 
     return (
         <div id="meals">
-            {meals && meals.map((meal, index) => (
-                <MealItem meal={meal} key={index}></MealItem>
+            {items && items.map((items, index) => (
+                <MealItem meal={items} key={index}></MealItem>
             ))}
         </div>
 

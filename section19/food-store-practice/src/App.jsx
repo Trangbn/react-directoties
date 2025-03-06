@@ -8,8 +8,8 @@ function App() {
 
     return (
         <>
-            <Header/>
             <MealContextProvider>
+                <Header/>
                 <Meals/>
             </MealContextProvider>
         </>
