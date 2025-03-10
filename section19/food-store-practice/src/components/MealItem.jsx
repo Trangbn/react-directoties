@@ -12,7 +12,7 @@ export function MealItem({item}) {
                 <h3>{item.name}</h3>
                 <div className="meal-item-price">{item.price}$</div>
                 <p className="meal-item-description">{item.description}</p>
-                <button className="button meal-item-actions" onClick={() => addItemToCart(item.id)}>Add to cart</button>
+                <button className="button meal-item-actions" onClick={() => addItemToCart(item.id)}>Add to cart test</button>
             </article>
         </div>
     );
